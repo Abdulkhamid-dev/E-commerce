@@ -48,6 +48,28 @@ padding: 0px 0px;
     }
    }
 }
+.opportunity_section{
+    padding: 30px 26px;
+    background-color: #001529;
+    display: flex;
+    text-align: center;
+    div{
+        width: calc(100% / 4);
+            h3{
+                margin-bottom: 5px;
+                font-size: 20px;
+                font-weight: 600;
+                letter-spacing: .05em;
+                color: #fff;
+            }
+            p{
+                font-size: 15px;
+                font-weight: 300;
+                letter-spacing: 0;
+                color: #777;
+            }
+    }
+ }
 .content_second {
     display: inline-block;
     transition: 1s all .1s;

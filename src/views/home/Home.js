@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { Carousel, Button  } from "antd";
+import { Carousel, Button, Row, Col  } from "antd";
 import { StyledHome } from "./Home.style";
+import { RiSecurePaymentFill } from "react-icons/ri";
+import { MdOutlineDeliveryDining } from "react-icons/md";
+import { VscDebugRestart } from "react-icons/vsc";
+import { BiSupport } from "react-icons/bi";
 
 const HomeSection = () => {
   function onChange(a, b, c) {
@@ -13,6 +16,7 @@ const HomeSection = () => {
     textAlign: "center",
     background: "#364d79",
   };
+  let iconStyles = { color: "#1890ff", fontSize: "45px" };
 
   return (
     <StyledHome>
@@ -46,6 +50,30 @@ const HomeSection = () => {
           </h3>
         </div>
       </Carousel>
+      <div>
+        <Row className="opportunity_section">
+            <Col xs={12} s={12} sm={12} md={6} lg={6} xl={6}>
+            <MdOutlineDeliveryDining style={iconStyles}/>
+            <h3>Payment & Delivery</h3>
+            <p>Free shipping for orders over $50</p>
+            </Col>
+            <Col xs={12} s={12} sm={12} md={6} lg={6} xl={6}>
+            <VscDebugRestart style={iconStyles}/>
+            <h3>Return & Refund</h3>
+            <p>Free 100% money back guarantee</p>
+            </Col>
+            <Col xs={12} s={12} sm={12} md={6} lg={6} xl={6}>
+            <RiSecurePaymentFill style={iconStyles}/>
+            <h3>Secure Payment</h3>
+            <p>100% secure payment</p>
+            </Col>
+            <Col xs={12} s={12} sm={12} md={6} lg={6} xl={6}>
+            <BiSupport style={iconStyles}/>
+            <h3>Quality Support</h3>
+            <p>Always online feedback 24/7</p>
+            </Col>
+        </Row>
+      </div>
     </StyledHome>
   );
 };

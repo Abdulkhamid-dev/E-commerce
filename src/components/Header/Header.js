@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {RiShoppingBasket2Line, RiUserLine} from 'react-icons/ri'
+import { RiShoppingBasket2Line, RiUserLine } from "react-icons/ri";
 import { StyledSidebar } from "./Header.style";
 import { Layout, Menu, Dropdown, Button, Input } from "antd";
 import {
@@ -10,6 +10,8 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 import HomeSection from "../../views/home/Home";
+import Shop from "../../views/shop/Shop";
+import FooterSection from "../footer/Footer";
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -73,22 +75,40 @@ function SiderDemo() {
             </Menu>
           </div>
           <div className="account">
-           <div className="notification">
-           <a href="#!" className="bag_count">
-              <RiShoppingBasket2Line style={{color: '#1890ff',  fontSize: 25}}/>
-            </a >
+            <div className="notification">
+              <Dropdown
+                style={{ padding: 10 }}
+                className="bag_count"
+                overlay={menu}
+                placement="bottomLeft"
+                arrow
+              >
+                <a href="#!">
+                  <RiShoppingBasket2Line
+                    style={{ color: "#1890ff", fontSize: 25 }}
+                  />
+                </a>
+              </Dropdown>
               <span className="count">1</span>
-           </div>
-           <span className="user">
-           <Dropdown overlay={menu} placement="bottomRight" arrow>
-            <RiUserLine  style={{color: '#1890ff',  fontSize: 25}}/>
-            </Dropdown>
-           </span>
+            </div>
+            <span className="user">
+              <Dropdown
+                style={{ padding: 10 }}
+                overlay={menu}
+                placement="bottomRight"
+                arrow
+              >
+                <a href="#!">
+                  <RiUserLine style={{ color: "#1890ff", fontSize: 25 }} />
+                </a>
+              </Dropdown>
+            </span>
           </div>
         </Header>
         <Layout>
-          <HomeSection/>
+          <Shop />
         </Layout>
+        <FooterSection />
       </Layout>
     </StyledSidebar>
   );

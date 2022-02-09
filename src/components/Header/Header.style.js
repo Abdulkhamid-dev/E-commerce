@@ -48,14 +48,14 @@ export const StyledSidebar = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 18px;
-            height: 18px;
+            min-width: 16px;
+            height: 16px;
             border-radius: 50%;
             font-weight: 400;
-            font-size: 12px;
+            font-size: 10px;
             line-height: 1;
             margin-left: -8px;
-            margin-top: -20px;
+            margin-top: -30px;
             color: #fff;
             z-index: 1;
             background-color: #c96;
