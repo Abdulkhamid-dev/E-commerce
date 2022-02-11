@@ -14,8 +14,10 @@ import {
   Typography,
   Collapse,
   Slider,
+  Pagination,
 } from "antd";
-import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import LoadingCard from "./LoadingCard";
+import Cards from "./Cards";
 const { Option } = Select;
 const { Meta } = Card;
 const { Title, Text } = Typography;
@@ -30,11 +32,11 @@ function Shop() {
   };
 
   const priceChange = (value) => {
-    console.log('onChange: ', value);
-  }
+    console.log("onChange: ", value);
+  };
   const priceChangeAfter = (value) => {
-    console.log('onChange: ', value);
-  }
+    console.log("onChange: ", value);
+  };
   const showDrawer = () => {
     setVisible(true);
   };
@@ -45,10 +47,30 @@ function Shop() {
   return (
     <StyledShopSection>
       <Drawer
-        title={<div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-           <Text type="dark" style={{fontWeight: 550, fontSize: 16}}>Filters</Text>
-              <Text type="warning" style={{fontWeight: 500, fontSize: 14, padding: 5, cursor: "pointer"}}>Clean all</Text>
-        </div>}
+        title={
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text type="dark" style={{ fontWeight: 550, fontSize: 16 }}>
+              Filters
+            </Text>
+            <Text
+              type="warning"
+              style={{
+                fontWeight: 500,
+                fontSize: 14,
+                padding: 5,
+                cursor: "pointer",
+              }}
+            >
+              Clean all
+            </Text>
+          </div>
+        }
         placement={"left"}
         closable={false}
         onClose={onClose}
@@ -133,23 +155,47 @@ function Shop() {
             key="2"
             style={{ border: "none" }}
           >
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-            <Text type="secondary" style={{fontWeight: 550, fontSize: 16}}>Price Range</Text>
-              <Text type="warning" style={{fontWeight: 550, fontSize: 16, padding: 5, cursor: "pointer"}}>Filter</Text>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text type="secondary" style={{ fontWeight: 550, fontSize: 16 }}>
+                Price Range
+              </Text>
+              <Text
+                type="warning"
+                style={{
+                  fontWeight: 550,
+                  fontSize: 16,
+                  padding: 5,
+                  cursor: "pointer",
+                }}
+              >
+                Filter
+              </Text>
             </div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-            <Text type="secondary">$0</Text>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text type="secondary">$0</Text>
               <Text type="secondary">$100</Text>
             </div>
-    <Slider
-      range
-      tooltip="$"
-      step={10}
-      defaultValue={[0, 100]}
-      onChange={priceChange}
-      onAfterChange={priceChangeAfter}
-    />
-    </Panel>
+            <Slider
+              range
+              tooltip="$"
+              step={10}
+              defaultValue={[0, 100]}
+              onChange={priceChange}
+              onAfterChange={priceChangeAfter}
+            />
+          </Panel>
         </Collapse>
       </Drawer>
       <div className="header_shop">
@@ -183,187 +229,12 @@ function Shop() {
           </Button>
         </div>
       </div>
-      {loading ? (
-        <Row gutter={[24, 16]}>
-          <Col xs={24} s={12} sm={12} md={6} lg={6} xl={6} xxl={4}>
-            <Card style={{ width: "100%", marginTop: 16 }} loading={true}>
-              <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} s={12} sm={12} md={6} lg={6} xl={6} xxl={4}>
-            <Card style={{ width: "100%", marginTop: 16 }} loading={true}>
-              <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} s={12} sm={12} md={6} lg={6} xl={6} xxl={4}>
-            <Card style={{ width: "100%", marginTop: 16 }} loading={true}>
-              <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} s={12} sm={12} md={6} lg={6} xl={6} xxl={4}>
-            <Card style={{ width: "100%", marginTop: 16 }} loading={true}>
-              <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} s={12} sm={12} md={6} lg={6} xl={6} xxl={4}>
-            <Card style={{ width: "100%", marginTop: 16 }} loading={true}>
-              <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} s={12} sm={12} md={6} lg={6} xl={6} xxl={4}>
-            <Card style={{ width: "100%", marginTop: 16 }} loading={true}>
-              <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} s={12} sm={12} md={6} lg={6} xl={6} xxl={4}>
-            <Card style={{ width: "100%", marginTop: 16 }} loading={true}>
-              <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
-          </Col>
-          <Col xs={24} s={12} sm={12} md={6} lg={6} xl={6} xxl={4}>
-            <Card style={{ width: "100%", marginTop: 16 }} loading={true}>
-              <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Card>
-          </Col>
-        </Row>
-      ) : (
-        <div style={{}}>
-          <Card
-            hoverable
-            style={{ width: 280, margin: 6, float: "left" }}
-            cover={
-              <img
-                alt="example"
-                style={{ objectFit: "cover", width: 280, height: 200 }}
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-            actions={[
-              <AiOutlineShoppingCart key="setting" />,
-              <AiOutlineHeart key="edit" />,
-            ]}
-          >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 280, margin: 6, float: "left" }}
-            cover={
-              <img
-                alt="example"
-                style={{ objectFit: "cover", width: 280, height: 200 }}
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-            actions={[
-              <AiOutlineShoppingCart key="setting" />,
-              <AiOutlineHeart key="edit" />,
-            ]}
-          >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 280, margin: 6, float: "left" }}
-            cover={
-              <img
-                alt="example"
-                style={{ objectFit: "cover", width: 280, height: 200 }}
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-            actions={[
-              <AiOutlineShoppingCart key="setting" />,
-              <AiOutlineHeart key="edit" />,
-            ]}
-          >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 280, margin: 6, float: "left" }}
-            cover={
-              <img
-                alt="example"
-                style={{ objectFit: "cover", width: 280, height: 200 }}
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-            actions={[
-              <AiOutlineShoppingCart key="setting" />,
-              <AiOutlineHeart key="edit" />,
-            ]}
-          >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 280, margin: 6, float: "left" }}
-            cover={
-              <img
-                alt="example"
-                style={{ objectFit: "cover", width: 280, height: 200 }}
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-            actions={[
-              <AiOutlineShoppingCart key="setting" />,
-              <AiOutlineHeart key="edit" />,
-            ]}
-          >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-          <Card
-            hoverable
-            style={{ width: 280, margin: 6, float: "left" }}
-            cover={
-              <img
-                alt="example"
-                style={{ objectFit: "cover", width: 280, height: 200 }}
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-            actions={[
-              <AiOutlineShoppingCart key="setting" />,
-              <AiOutlineHeart key="edit" />,
-            ]}
-          >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div>
+          {loading ? <LoadingCard/> : <Cards/>}
         </div>
-      )}
+       <Pagination/>
+      </div>
     </StyledShopSection>
   );
 }

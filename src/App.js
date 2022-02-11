@@ -1,9 +1,9 @@
-import SiderDemo from "./components/Header/Header";
+import Main from "./views/main";
 
 function App() {
   return (
     <div>
-      <SiderDemo />
+      <Main/>
     </div>
   );
 }

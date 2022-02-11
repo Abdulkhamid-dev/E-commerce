@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RiShoppingBasket2Line, RiUserLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import { StyledSidebar } from "./Header.style";
 import { Layout, Menu, Dropdown, Button, Input } from "antd";
 import {
@@ -51,7 +52,6 @@ function SiderDemo() {
   );
   return (
     <StyledSidebar>
-      <Layout className="main">
         <Header className="header">
           <div>
             <div className="logo">
@@ -63,10 +63,10 @@ function SiderDemo() {
             <Menu theme="dark" className="nav" defaultSelectedKeys={["2"]}>
               <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
                 <Menu.Item className="menu_item" key="1">
-                  Home
+                <Link to="/">Home</Link>
                 </Menu.Item>
                 <Menu.Item className="menu_item" key="2">
-                  Shop
+                <Link to="/shop">Shop</Link>
                 </Menu.Item>
                 <Menu.Item className="menu_item" key="3">
                   Bag
@@ -105,11 +105,6 @@ function SiderDemo() {
             </span>
           </div>
         </Header>
-        <Layout>
-          <Shop />
-        </Layout>
-        <FooterSection />
-      </Layout>
     </StyledSidebar>
   );
 }
