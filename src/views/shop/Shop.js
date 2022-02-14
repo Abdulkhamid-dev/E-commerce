@@ -18,6 +18,8 @@ import {
 } from "antd";
 import LoadingCard from "./LoadingCard";
 import Cards from "./Cards";
+import FooterSection from "../../components/footer/Footer";
+import SiderDemo from "../../components/Header/Header";
 const { Option } = Select;
 const { Meta } = Card;
 const { Title, Text } = Typography;
@@ -46,6 +48,7 @@ function Shop() {
   };
   return (
     <StyledShopSection>
+          <SiderDemo/>
       <Drawer
         title={
           <div
@@ -235,6 +238,7 @@ function Shop() {
         </div>
        <Pagination/>
       </div>
+      <FooterSection/>
     </StyledShopSection>
   );
 }

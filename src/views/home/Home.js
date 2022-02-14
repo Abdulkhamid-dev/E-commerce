@@ -4,6 +4,8 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { VscDebugRestart } from "react-icons/vsc";
 import { BiSupport } from "react-icons/bi";
+import FooterSection from '../../components/footer/Footer'
+import SiderDemo from "../../components/Header/Header";
 
 const HomeSection = () => {
   function onChange(a, b, c) {
@@ -13,13 +15,14 @@ const HomeSection = () => {
   const contentStyle = {
     height: "400px",
     color: "#fff",
-    textAlign: "center",
+    textAlign: "center",  
     background: "#364d79",
   };
   let iconStyles = { color: "#1890ff", fontSize: "45px" };
 
   return (
     <StyledHome>
+          <SiderDemo/>
       <Carousel afterChange={onChange} autoplay dotPosition="right">
         <div>
           <h3 style={contentStyle}>
@@ -74,6 +77,7 @@ const HomeSection = () => {
             </Col>
         </Row>
       </div>
+      <FooterSection/>
     </StyledHome>
   );
 };

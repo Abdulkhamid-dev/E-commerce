@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledShopSection = styled.div`
-padding: 20px;
 .header_shop, .sort{
     display: flex;
     align-items: center;

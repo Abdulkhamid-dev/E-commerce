@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RiShoppingBasket2Line, RiUserLine } from "react-icons/ri";
+import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { StyledSidebar } from "./Header.style";
 import { Layout, Menu, Dropdown, Button, Input } from "antd";
@@ -75,6 +76,22 @@ function SiderDemo() {
             </Menu>
           </div>
           <div className="account">
+            <div className="notification">
+              <Dropdown
+                style={{ padding: 10 }}
+                className="bag_count"
+                overlay={menu}
+                placement="bottomLeft"
+                arrow
+              >
+                <a href="#!">
+                  <AiOutlineHeart
+                    style={{ color: "#1890ff", fontSize: 25 }}
+                  />
+                </a>
+              </Dropdown>
+              <span className="count">0</span>
+            </div>
             <div className="notification">
               <Dropdown
                 style={{ padding: 10 }}

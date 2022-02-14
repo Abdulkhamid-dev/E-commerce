@@ -1,13 +1,17 @@
-import React from 'react'
-import {Pagination} from 'antd'
-import { StyledPagination } from './pagination.style'
+import React, { useState } from "react";
+import { Pagination } from "antd";
+import { StyledPagination } from "./pagination.style";
 
 function Pagination() {
+  const [current, setCurrent] = useState(1);
+  const onChange = (page) => {
+    setCurrent(page);
+  };
   return (
-  <StyledPagination>
-       <Pagination  defaultCurrent={1} total={50} />
-  </StyledPagination>
-  )
+    <StyledPagination>
+      <Pagination current={current} onChange={onChange} total={50} />
+    </StyledPagination>
+  );
 }
 
-export default Pagination
+export default Pagination;

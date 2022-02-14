@@ -2,19 +2,24 @@ import React from "react";
 import { Layout } from "antd";
 import SiderDemo from "../../components/Header/Header";
 import Shop from "../shop/Shop";
+import ProductDetails from "../productDetails/ProductDetails";
 import FooterSection from "../../components/footer/Footer"
 import { StyledMain } from "./main.style";
 import HomeSection from "../home/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SignIn from "../auth/signIn/SignIn";
+import SignUp from "../auth/signUp/SignUp";
 
 function Main() {
   return (
     <StyledMain>
       <Layout className="main">
-       <SiderDemo/>
        <Routes>
-      <Route path="/" element={<HomeSection />} />
+    <Route path="*" element={<HomeSection />} />
       <Route path="/shop" element={<Shop />} />
+      <Route path="/product" element={<ProductDetails />} />
+      <Route path="/signin" element={<SignIn/>} />
+      <Route path="/signup" element={<SignUp/>} />
     </Routes>
       </Layout>
     </StyledMain>
