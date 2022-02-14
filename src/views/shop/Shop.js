@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyledShopSection } from "./Shop.style";
+import {db} from '../../firebase/firebase-config';
+import {collection, getDoc, getDocs} from 'firebase/firestore'
 import {
   Drawer,
   Button,
@@ -28,6 +30,15 @@ const { Panel } = Collapse;
 function Shop() {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const productCollectionRef = collection(db, "products")
+
+  const getProducts = async () =>{
+    const data = await getDocs(productCollectionRef);
+    setProducts(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+  }
+
+  console.log(products);
 
   const onChange = (checkedValues) => {
     console.log("checked = ", checkedValues);
@@ -46,6 +57,10 @@ function Shop() {
   const onClose = () => {
     setVisible(false);
   };
+
+  useEffect(() => {
+    getProducts()
+  },[])
   return (
     <StyledShopSection>
           <SiderDemo/>
