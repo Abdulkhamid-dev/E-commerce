@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyledShopSection } from "./Shop.style";
-import {db} from '../../firebase/firebase-config';
-import {collection, getDoc, getDocs} from 'firebase/firestore'
+import { db } from "../../firebase/firebase-config";
+import { Link } from "react-router-dom";
+import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import { collection, getDoc, getDocs, addDoc, doc } from "firebase/firestore";
 import {
   Drawer,
   Button,
@@ -29,19 +31,50 @@ const { Panel } = Collapse;
 
 function Shop() {
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
-  const productCollectionRef = collection(db, "products")
+  const [pureState, setPureState] = useState([]);
+  const [single, setSingle] = useState({});
+  const productCollectionRef = collection(db, "products");
+  const cardCollectionRef = collection(db, "card");
 
-  const getProducts = async () =>{
+  const getProducts = async () => {
     const data = await getDocs(productCollectionRef);
-    setProducts(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
-  }
+    setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setPureState(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setLoading(false);
+  };
+
+  const addToCard = async () => {
+    await addDoc(cardCollectionRef, { name: "me" });
+  };
+
+  const getSingleData = async (id) => {
+    const docRef = doc(db, "products", id);
+    await getDoc(docRef).then((doc) => {
+      setSingle({});
+      setSingle({...doc.data(), id: doc.id})
+      console.log(doc.data(), doc.id);
+      console.log(single);
+    });
+  };
 
   console.log(products);
 
   const onChange = (checkedValues) => {
     console.log("checked = ", checkedValues);
+  };
+
+  const filterCollection = (value) => {
+    console.log(value);
+    if (value.value === "all") {
+      setProducts(pureState);
+    } else {
+      const filteredState = pureState?.filter(
+        (i) => i.collection.toLowerCase() === value.value
+      );
+      setProducts(filteredState);
+    }
   };
 
   const priceChange = (value) => {
@@ -59,11 +92,11 @@ function Shop() {
   };
 
   useEffect(() => {
-    getProducts()
-  },[])
+    getProducts();
+  }, []);
   return (
     <StyledShopSection>
-          <SiderDemo/>
+      <SiderDemo />
       <Drawer
         title={
           <div
@@ -227,20 +260,14 @@ function Shop() {
           <Select
             showSearch
             style={{ width: 200 }}
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            filterSort={(optionA, optionB) =>
-              optionA.children
-                .toLowerCase()
-                .localeCompare(optionB.children.toLowerCase())
-            }
+            labelInValue
+            defaultValue={{ value: "All" }}
+            style={{ width: 120 }}
+            onChange={filterCollection}
           >
+            <Option value="all">All</Option>
             <Option value="shoes">Shoes</Option>
             <Option value="clothes">Clothes</Option>
-            <Option value="electronic">Electronics</Option>
-            <Option value="jewellery">Jewellery</Option>
           </Select>
           <Button type="primary" onClick={showDrawer}>
             Filter
@@ -249,11 +276,28 @@ function Shop() {
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div>
-          {loading ? <LoadingCard/> : <Cards/>}
+          {loading ? (
+            <LoadingCard />
+          ) : (
+            products.map((item) => {
+              const { id, name, description, price, images, brand } = item;
+              return (
+                <Cards
+                  click={`/product/${id}`}
+                  id={id}
+                  key={id}
+                  description={description}
+                  name={name}
+                  images={images[0]}
+                  brand={brand}
+                />
+              );
+            })
+          )}
         </div>
-       <Pagination/>
+        <Pagination />
       </div>
-      <FooterSection/>
+      <FooterSection />
     </StyledShopSection>
   );
 }

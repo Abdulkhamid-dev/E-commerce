@@ -7,24 +7,20 @@ export const StyledProduct = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 30px;
+  padding: 30px;
 }
 
+.img_block, .info_block {
+  max-width: 600px;
+  width: 100%;
+}
   .content {
     div{
       margin: 10px;
     }
     display: flex;
     align-items: top;
-  }
-  .img_block{
-    width: 406px;
-    height: 406px;
-    img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    justify-content: center;
   }
   .number {
     border: 1px solid;
@@ -89,7 +85,7 @@ export const StyledProduct = styled.div`
     font-size: 14px;
     font-weight: normal;
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
     .content{
       display: block;
     }

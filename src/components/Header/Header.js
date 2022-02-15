@@ -22,7 +22,8 @@ const { Search } = Input;
 function SiderDemo() {
   const menu = (
     <Menu>
-      <Menu.Item>
+     {
+       localStorage.jwt ? ( <Menu.Item>
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -30,25 +31,14 @@ function SiderDemo() {
         >
           1st menu item
         </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          2nd menu item
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
-          3rd menu item
-        </a>
-      </Menu.Item>
+      </Menu.Item>) : (
+         <Menu.Item>
+        <Link to="/signin">
+          Sign in
+        </Link>
+       </Menu.Item>
+      )
+     }
     </Menu>
   );
   return (

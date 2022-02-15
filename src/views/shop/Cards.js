@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import {Link,  useParams, useSearchParams } from "react-router-dom";
 import {
   Select,
   Card,
@@ -11,112 +12,29 @@ import {
 } from "antd";
 import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 const { Meta } = Card;
-function Cards() {
+function Cards(props) {
   return (
-    <div>
-      <Card
-        hoverable
-        style={{ width: 280, margin: 6, float: "left" }}
-        cover={
-          <img
-            alt="example"
-            style={{ objectFit: "cover", width: 280, height: 200 }}
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
-        actions={[
-          <AiOutlineShoppingCart key="setting" />,
-          <AiOutlineHeart key="edit" />,
-        ]}
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
-      <Card
-        hoverable
-        style={{ width: 280, margin: 6, float: "left" }}
-        cover={
-          <img
-            alt="example"
-            style={{ objectFit: "cover", width: 280, height: 200 }}
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
-        actions={[
-          <AiOutlineShoppingCart key="setting" />,
-          <AiOutlineHeart key="edit" />,
-        ]}
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
-      <Card
-        hoverable
-        style={{ width: 280, margin: 6, float: "left" }}
-        cover={
-          <img
-            alt="example"
-            style={{ objectFit: "cover", width: 280, height: 200 }}
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
-        actions={[
-          <AiOutlineShoppingCart key="setting" />,
-          <AiOutlineHeart key="edit" />,
-        ]}
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
-      <Card
-        hoverable
-        style={{ width: 280, margin: 6, float: "left" }}
-        cover={
-          <img
-            alt="example"
-            style={{ objectFit: "cover", width: 280, height: 200 }}
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
-        actions={[
-          <AiOutlineShoppingCart key="setting" />,
-          <AiOutlineHeart key="edit" />,
-        ]}
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
-      <Card
-        hoverable
-        style={{ width: 280, margin: 6, float: "left" }}
-        cover={
-          <img
-            alt="example"
-            style={{ objectFit: "cover", width: 280, height: 200 }}
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
-        actions={[
-          <AiOutlineShoppingCart key="setting" />,
-          <AiOutlineHeart key="edit" />,
-        ]}
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
-      <Card
-        hoverable
-        style={{ width: 280, margin: 6, float: "left" }}
-        cover={
-          <img
-            alt="example"
-            style={{ objectFit: "cover", width: 280, height: 200 }}
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
-        actions={[
-          <AiOutlineShoppingCart key="setting" />,
-          <AiOutlineHeart key="edit" />,
-        ]}
-      >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
-      </Card>
-    </div>
+    <Card
+      hoverable
+      key={props.id}
+      id={props.id}
+      style={{ width: 280, margin: 6, float: "left" }}
+      cover={
+        <img
+          alt="example"
+          style={{ objectFit: "cover", width: 280, height: 200 }}
+          src={props.images}
+        />
+      }
+      actions={[
+        <AiOutlineShoppingCart key="setting" />,
+        <AiOutlineHeart key="edit" />,
+      ]}
+    >
+     <Link to={props.click}>
+     <Meta title={props.name} description={props.brand} />
+     </Link>
+    </Card>
   );
 }
 

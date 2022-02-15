@@ -1,20 +1,20 @@
 import React, { useRef, useState } from "react";
 import { StyledSignIn } from "../signIn/SignIn.style";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import LogoImg from "../../../assets/img/sign_logo.svg";
 import user from "../../../assets/img/user.svg";
 import lock from "../../../assets/img/lock.svg";
 import { Link } from "react-router-dom";
 
 function SignIn() {
-  const inputName = useRef();
+  const auth = getAuth();
   const inputPassword = useRef();
   const inputEmail = useRef();
   const [value, setValue] = useState({
-    userName: "",
     email: "",
     password: "",
   });
-  const { userName, email, password } = value;
+  const { email, password } = value;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +24,17 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(value);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((cred) => {
+        console.log("user", cred.user);
+        localStorage.setItem("userInfo", JSON.stringify(cred.user.email));
+        localStorage.setItem("jwt", cred.user.accessToken);
+        window.location.pathname = '/shop'
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
   return (
     <StyledSignIn>
@@ -33,18 +44,6 @@ function SignIn() {
         </div>
         <div>
           <form onsubmit={handleSubmit}>
-            <div onClick={() => inputName.current.focus()}>
-              <img src={user} alt="user" />
-              <input
-                required
-                type="text"
-                placeholder="USERNAME"
-                value={userName}
-                name="userName"
-                onChange={handleInputChange}
-                ref={inputName}
-              />
-            </div>
             <div onClick={() => inputEmail.current.focus()}>
               <img src={user} alt="user" />
               <input
@@ -69,7 +68,7 @@ function SignIn() {
                 ref={inputPassword}
               />
             </div>
-            <button onClick={handleSubmit}>LOGIN</button>
+            <button onClick={handleSubmit}>SIGN UP</button>
             <a>
               <Link to="/signin">You have account!</Link>
             </a>
