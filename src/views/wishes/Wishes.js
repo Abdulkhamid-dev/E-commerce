@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import SiderDemo from "../../components/Header/Header";
 import { db } from "../../firebase/firebase-config";
-import { getWisheslist, deleteWish } from "../../store/wishes/actions";
+import { deleteWish } from "../../store/wishes/actions";
+import { getWisheslist } from "../../store/wishes/actions";
 import WishCard from "./WishCard";
 
 function Wishes() {
@@ -22,7 +23,7 @@ function Wishes() {
     setLoading(false);
   };
 
-  const deleteWish = async (id) => {
+  const deleteWishItem = async (id) => {
     await deleteDoc(doc(db, "wishes", id));
     const deletedWshlist = await store.wishes.filter((item) => item.id !== id)
     dispatch(deleteWish(deletedWshlist))
@@ -62,7 +63,7 @@ function Wishes() {
                       productName={name}
                       price={price}
                       description={description}
-                      handleClick={() => deleteWish(id)}
+                      handleClick={() => deleteWishItem(id)}
                       />
                   )
               })

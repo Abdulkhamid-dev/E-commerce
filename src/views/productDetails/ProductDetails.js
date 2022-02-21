@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDoc, doc, addDoc, collection } from "firebase/firestore";
+import { getDoc, doc, addDoc, collection, getDocs } from "firebase/firestore";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { db } from "../../firebase/firebase-config";
 import { StyledProduct } from "./ProductDetails.style";
@@ -7,6 +7,8 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Button, Tooltip, Spin, Space, message } from "antd";
 import SiderDemo from "../../components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
+import { getWisheslist } from "../../store/wishes/actions";
+import { getCardlist } from "../../store/cards/actions";
 
 function ItemDetails() {
   const dispatch = useDispatch();
@@ -35,6 +37,21 @@ function ItemDetails() {
       setItemNum((prev) => prev - 1);
     }
   };
+  const getWishes = async () => {
+    const data = await getDocs(wishRef);
+    const allWishes = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const filteredWishes = allWishes.filter((wish) => wish.token === localStorage.jwt)
+    dispatch(getWisheslist(filteredWishes));
+    console.log('dssss');
+  };
+  const getCards = async () => {
+    const data = await getDocs(cardRef);
+    const allcards = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const filteredCard = allcards.filter(
+      (wish) => wish.cardData.token === store?.auth?.token
+    );
+    dispatch(getCardlist(filteredCard));
+  };
   // GETTING DATA BY ID
   const getSingleData = async () => {
     const docRef = doc(db, "products", params.productId);
@@ -54,6 +71,7 @@ function ItemDetails() {
       addDoc(wishRef, { ...wishList, token: localStorage?.jwt })
         .then((doc) => {
           message.info("Added to wishlist");
+          getWishes()
         })
         .catch((err) => {
           message.error(err.message);
@@ -83,6 +101,7 @@ function ItemDetails() {
       })
         .then((doc) => {
           message.info("Added to card");
+          getCards()
         })
         .catch((err) => {
           message.error(err.message);
