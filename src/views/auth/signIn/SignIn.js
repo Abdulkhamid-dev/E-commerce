@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { StyledSignIn } from "./SignIn.style";
+import { message, Button, Space } from 'antd';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 import {AiOutlineMail} from 'react-icons/ai'
 import LogoImg from "../../../assets/img/sign_logo.svg";
@@ -17,6 +18,7 @@ function SignIn() {
   });
   const { email, password } = value;
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValue((prevState) => ({ ...prevState, [name]: value }));
@@ -27,13 +29,15 @@ function SignIn() {
     console.log(value);
     signInWithEmailAndPassword(auth, email, password)
     .then((cred) => {
-      console.log('user', cred.user);
+      console.log('user', cred);
+      message.success('You successfully logged');
       localStorage.setItem("userInfo", JSON.stringify(cred.user.email));
-      localStorage.setItem("jwt", cred.user.accessToken);
+      localStorage.setItem("jwt", cred.user.uid);
       window.location.pathname = '/shop'
     })
     .catch((err) => {
       console.log(err.message);
+      message.error(err.message);
     })
   };
   return (

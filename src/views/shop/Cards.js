@@ -14,6 +14,7 @@ import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 const { Meta } = Card;
 function Cards(props) {
   return (
+    <Link to={props.click}>
     <Card
       hoverable
       key={props.id}
@@ -31,10 +32,9 @@ function Cards(props) {
         <AiOutlineHeart key="edit" />,
       ]}
     >
-     <Link to={props.click}>
      <Meta title={props.name} description={props.brand} />
-     </Link>
     </Card>
+     </Link>
   );
 }
 

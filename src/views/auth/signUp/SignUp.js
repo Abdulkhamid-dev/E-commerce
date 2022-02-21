@@ -29,7 +29,7 @@ function SignIn() {
       .then((cred) => {
         console.log("user", cred.user);
         localStorage.setItem("userInfo", JSON.stringify(cred.user.email));
-        localStorage.setItem("jwt", cred.user.accessToken);
+        localStorage.setItem("jwt", cred.user.uid);
         window.location.pathname = '/shop'
       })
       .catch((err) => {

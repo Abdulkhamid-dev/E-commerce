@@ -252,7 +252,7 @@ function Shop() {
       <div className="header_shop">
         <div>
           <span>
-            Showing <strong> 12 of 37</strong> Products
+            Showing <strong>{products.length}</strong> Products
           </span>
         </div>
         <div className="sort">

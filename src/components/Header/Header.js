@@ -14,16 +14,48 @@ import {
 import HomeSection from "../../views/home/Home";
 import Shop from "../../views/shop/Shop";
 import FooterSection from "../footer/Footer";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebase-config";
+import { useDispatch } from "react-redux";
+import { getWisheslist } from "../../store/wishes/actions";
+import { useSelector } from "react-redux";
+import { getCardlist } from "../../store/cards/actions";
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
 
 function SiderDemo() {
+  const dispatch = useDispatch()
+  const store = useSelector(state => state)
+  const {auth, wishes, cards,} = store
+  const wishesCollectionRef = collection(db, "wishes")
+  const cardsCollectionRef = collection(db, "card")
+  const getWishes = async () => {
+    const data = await getDocs(wishesCollectionRef);
+    const allWishes = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const filteredWishes = allWishes.filter((wish) => wish.token === store?.auth?.token)
+   dispatch(getWisheslist(filteredWishes));
+  };
+  const getCards = async () => {
+    const data = await getDocs(cardsCollectionRef);
+    const allcards = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const filteredCard = allcards.filter(
+      (wish) => wish.cardData.token === auth?.token
+    );
+   dispatch(getCardlist(filteredCard));
+  };
+
+  console.log(wishes);
+
+  useEffect(() => {
+    getWishes();
+    getCards();
+  },[])
   const menu = (
     <Menu>
      {
-       localStorage.jwt ? ( <Menu.Item>
+       store.auth.token ? ( <Menu.Item>
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -59,44 +91,29 @@ function SiderDemo() {
                 <Menu.Item className="menu_item" key="2">
                 <Link to="/shop">Shop</Link>
                 </Menu.Item>
-                <Menu.Item className="menu_item" key="3">
-                  Bag
-                </Menu.Item>
               </Menu>
             </Menu>
           </div>
           <div className="account">
             <div className="notification">
-              <Dropdown
-                style={{ padding: 10 }}
-                className="bag_count"
-                overlay={menu}
-                placement="bottomLeft"
-                arrow
-              >
-                <a href="#!">
-                  <AiOutlineHeart
+                 <Link to="/wishes">
+                <a>
+                 <AiOutlineHeart
                     style={{ color: "#1890ff", fontSize: 25 }}
                   />
                 </a>
-              </Dropdown>
-              <span className="count">0</span>
+                 </Link>
+              <span className="count">{wishes.length}</span>
             </div>
             <div className="notification">
-              <Dropdown
-                style={{ padding: 10 }}
-                className="bag_count"
-                overlay={menu}
-                placement="bottomLeft"
-                arrow
-              >
+                <Link to="/card">
                 <a href="#!">
                   <RiShoppingBasket2Line
                     style={{ color: "#1890ff", fontSize: 25 }}
                   />
                 </a>
-              </Dropdown>
-              <span className="count">1</span>
+                </Link>
+              <span className="count">{cards.length}</span>
             </div>
             <span className="user">
               <Dropdown
