@@ -189,7 +189,6 @@ function ItemDetails() {
                 </div>
               </div>
               <div className="info_block">
-               <form>
                <div className="price">
                   <h3>{data.name}</h3>
                   <span>
@@ -205,7 +204,7 @@ function ItemDetails() {
                     <>
                       <input
                         type="number"
-                        required
+                        placeholder="...Your size"
                         style={{
                           outline: "none",
                           border: "1px solid",
@@ -218,7 +217,6 @@ function ItemDetails() {
                     </>
                   ) : (
                     <select
-                    required
                       style={{
                         outline: "none",
                         border: "1px solid",
@@ -265,7 +263,6 @@ function ItemDetails() {
                     </div>
                   </Tooltip>
                 </div>
-               </form>
               </div>
             </div>
           </div>
