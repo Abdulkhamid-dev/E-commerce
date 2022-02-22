@@ -3,12 +3,16 @@ import { StyledSignIn } from "./SignIn.style";
 import { message, Button, Space } from 'antd';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 import {AiOutlineMail} from 'react-icons/ai'
+import {useDispatch, useSelector} from 'react-redux'
 import LogoImg from "../../../assets/img/sign_logo.svg";
 import user from "../../../assets/img/user.svg";
 import lock from "../../../assets/img/lock.svg";
 import { Link } from "react-router-dom";
+import { signInAction } from "../../../store/auth/actions";
 
 function SignIn() {
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
   const auth = getAuth();
   const inputName = useRef();
   const inputPassword = useRef();
@@ -33,6 +37,10 @@ function SignIn() {
       message.success('You successfully logged');
       localStorage.setItem("userInfo", JSON.stringify(cred.user.email));
       localStorage.setItem("jwt", cred.user.uid);
+      const userData = {
+        token: cred.user.uid,
+      }
+      dispatch(signInAction(userData));
       window.location.pathname = '/shop'
     })
     .catch((err) => {

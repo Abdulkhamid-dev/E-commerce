@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import {useDispatch, useSelector} from 'react-redux'
+import {signUpAction} from '../../../store/auth/actions'
 import { StyledSignIn } from "../signIn/SignIn.style";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import LogoImg from "../../../assets/img/sign_logo.svg";
@@ -7,6 +9,8 @@ import lock from "../../../assets/img/lock.svg";
 import { Link } from "react-router-dom";
 
 function SignIn() {
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
   const auth = getAuth();
   const inputPassword = useRef();
   const inputEmail = useRef();
@@ -30,7 +34,11 @@ function SignIn() {
         console.log("user", cred.user);
         localStorage.setItem("userInfo", JSON.stringify(cred.user.email));
         localStorage.setItem("jwt", cred.user.uid);
-        window.location.pathname = '/shop'
+        const userData = {
+          token: cred.user.uid,
+        }
+        dispatch(signUpAction(userData));
+        window.location.pathname = "/shop";
       })
       .catch((err) => {
         console.log(err.message);

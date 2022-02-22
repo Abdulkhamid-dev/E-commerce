@@ -12,19 +12,16 @@ export default function authentication(state = initialAuthState, action) {
   switch (action.type) {
     case SIGN_OUT: {
       return {
-        ...state,
-        ...action.payload,
+      ...initialAuthState
       };
     }
     case SIGN_IN: {
       return {
-        ...state,
         ...action.payload,
       };
     }
     case SIGN_UP: {
       return {
-        ...state,
         ...action.payload,
       };
     }

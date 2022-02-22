@@ -189,7 +189,8 @@ function ItemDetails() {
                 </div>
               </div>
               <div className="info_block">
-                <div className="price">
+               <form>
+               <div className="price">
                   <h3>{data.name}</h3>
                   <span>
                     <p>${data.price}</p>
@@ -204,6 +205,7 @@ function ItemDetails() {
                     <>
                       <input
                         type="number"
+                        required
                         style={{
                           outline: "none",
                           border: "1px solid",
@@ -216,6 +218,7 @@ function ItemDetails() {
                     </>
                   ) : (
                     <select
+                    required
                       style={{
                         outline: "none",
                         border: "1px solid",
@@ -262,6 +265,7 @@ function ItemDetails() {
                     </div>
                   </Tooltip>
                 </div>
+               </form>
               </div>
             </div>
           </div>
