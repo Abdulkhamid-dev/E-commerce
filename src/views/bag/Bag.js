@@ -12,22 +12,20 @@ import { Button, Space, Spin, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
- function Bag() {
+function Bag() {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
-  const [userToken, setUserToken] = useState('')
+  const [userToken, setUserToken] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState();
 
   const [product, setProduct] = useState({
-    name: '',
+    name: "",
     price: 0,
     description: "",
   });
   const cardCollections = collection(db, "card");
-
-  console.log(store);
 
   const getData = async () => {
     setData(store.cards);
@@ -48,16 +46,13 @@ import axios from "axios";
     await dispatch(deleteCard(deletedData));
   };
 
-
-
   async function handleToken(token, addresses) {
-    const response = await axios.post(
-      "http://localhost:5000/checkout",
-      { token, product }
-    );
+    const response = await axios.post("http://localhost:5000/checkout", {
+      token,
+      product,
+    });
 
-    console.log(response.status)
-
+    console.log(response.status);
   }
 
   useEffect(() => {
@@ -68,11 +63,11 @@ import axios from "axios";
   }, [data]);
   useEffect(() => {
     setProduct({
-      name: 'Some Products',
-      price: total + .00,
-      description: "Simple shopping"
-    })
-  }, [total])
+      name: "Some Products",
+      price: total + 0.0,
+      description: "Simple shopping",
+    });
+  }, [total]);
 
   return (
     <StyledBagCard>
@@ -150,16 +145,15 @@ import axios from "axios";
                 <h4 style={{ marginTop: "10px", marginRight: "10px" }}>
                   Total price: ${total}.00
                 </h4>
-                <StripeCheckout 
-               amount={total}
-               name={data[0]?.name}
-                billingAddress
-                shippingAddress
-                token={handleToken}
-                stripeKey="pk_test_51KXUZyHxISu3Gi2qJgg8OqLBmsxONU1xlnsezMd1uKrsROjrLsLdNreEGvUjBpYZNJ24wROM3Z1BvB2y6syyMXwB00UMwfj90j">
-                  <Button type="primary" >
-                    Buy now
-                  </Button>
+                <StripeCheckout
+                  amount={total}
+                  name={data[0]?.name}
+                  billingAddress
+                  shippingAddress
+                  token={handleToken}
+                  stripeKey="pk_test_51KXUZyHxISu3Gi2qJgg8OqLBmsxONU1xlnsezMd1uKrsROjrLsLdNreEGvUjBpYZNJ24wROM3Z1BvB2y6syyMXwB00UMwfj90j"
+                >
+                  <Button type="primary">Buy now</Button>
                 </StripeCheckout>
               </div>
             </div>
