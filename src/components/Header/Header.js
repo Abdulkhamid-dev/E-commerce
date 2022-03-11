@@ -51,6 +51,7 @@ function SiderDemo() {
   const signOut = () => {
     localStorage.clear();
     dispatch(signOutAction())
+    window.location.reload(true);
     
   }
 
