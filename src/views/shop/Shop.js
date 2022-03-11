@@ -53,13 +53,11 @@ function Shop() {
     const docRef = doc(db, "products", id);
     await getDoc(docRef).then((doc) => {
       setSingle({});
-      setSingle({...doc.data(), id: doc.id})
+      setSingle({ ...doc.data(), id: doc.id });
       console.log(doc.data(), doc.id);
       console.log(single);
     });
   };
-
-  console.log(products);
 
   const onChange = (checkedValues) => {
     console.log("checked = ", checkedValues);
@@ -259,7 +257,6 @@ function Shop() {
           <p>Sort by:</p>
           <Select
             showSearch
-            style={{ width: 200 }}
             labelInValue
             defaultValue={{ value: "All" }}
             style={{ width: 120 }}
