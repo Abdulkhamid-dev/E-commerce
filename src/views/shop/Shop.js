@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { StyledShopSection } from "./Shop.style";
 import { db } from "../../firebase/firebase-config";
-import { Link } from "react-router-dom";
-import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
-import { collection, getDoc, getDocs, addDoc, doc } from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore";
 import {
   Drawer,
   Button,
   Select,
-  Skeleton,
-  Switch,
-  Card,
-  Avatar,
   Row,
   Col,
   Checkbox,
@@ -25,7 +19,6 @@ import Cards from "./Cards";
 import FooterSection from "../../components/footer/Footer";
 import SiderDemo from "../../components/Header/Header";
 const { Option } = Select;
-const { Meta } = Card;
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
 
@@ -34,9 +27,7 @@ function Shop() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [pureState, setPureState] = useState([]);
-  const [single, setSingle] = useState({});
   const productCollectionRef = collection(db, "products");
-  const cardCollectionRef = collection(db, "card");
 
   const getProducts = async () => {
     const data = await getDocs(productCollectionRef);
@@ -45,19 +36,6 @@ function Shop() {
     setLoading(false);
   };
 
-  const addToCard = async () => {
-    await addDoc(cardCollectionRef, { name: "me" });
-  };
-
-  const getSingleData = async (id) => {
-    const docRef = doc(db, "products", id);
-    await getDoc(docRef).then((doc) => {
-      setSingle({});
-      setSingle({ ...doc.data(), id: doc.id });
-      console.log(doc.data(), doc.id);
-      console.log(single);
-    });
-  };
 
   const onChange = (checkedValues) => {
     console.log("checked = ", checkedValues);
@@ -277,7 +255,7 @@ function Shop() {
             <LoadingCard />
           ) : (
             products.map((item) => {
-              const { id, name, description, price, images, brand } = item;
+              const { id, name, description, images, brand } = item;
               return (
                 <Cards
                   click={`/product/${id}`}
