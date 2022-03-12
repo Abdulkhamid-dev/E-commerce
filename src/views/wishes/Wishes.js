@@ -12,7 +12,6 @@ import WishCard from "./WishCard";
 function Wishes() {
   const store = useSelector(state => state)
   const dispatch = useDispatch()
-  const [wishProduct, setWishProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const wishesCollectionRef = collection(db, "wishes");
   const getWishes = async () => {
@@ -32,6 +31,7 @@ function Wishes() {
   useEffect(() => {
       getWishes()
   }, [])
+
   return (
     <div>
       <SiderDemo />
@@ -56,7 +56,6 @@ function Wishes() {
               store.wishes.map((item) => {
                   const {id, name, description, price, images} = item
                   return(
-
                       <WishCard 
                       key={id}
                       img={images}
