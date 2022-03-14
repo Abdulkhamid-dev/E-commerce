@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
 import { StyledSignIn } from "./SignIn.style";
-import { message, Button, Space } from 'antd';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
-import {AiOutlineMail} from 'react-icons/ai'
-import {useDispatch, useSelector} from 'react-redux'
+import { message } from "antd";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useDispatch } from "react-redux";
 import LogoImg from "../../../assets/img/sign_logo.svg";
 import user from "../../../assets/img/user.svg";
 import lock from "../../../assets/img/lock.svg";
@@ -12,7 +11,6 @@ import { signInAction } from "../../../store/auth/actions";
 
 function SignIn() {
   const dispatch = useDispatch();
-  const store = useSelector((state) => state);
   const auth = getAuth();
   const inputName = useRef();
   const inputPassword = useRef();
@@ -22,7 +20,6 @@ function SignIn() {
   });
   const { email, password } = value;
 
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValue((prevState) => ({ ...prevState, [name]: value }));
@@ -30,23 +27,21 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(value);
     signInWithEmailAndPassword(auth, email, password)
-    .then((cred) => {
-      console.log('user', cred);
-      message.success('You successfully logged');
-      localStorage.setItem("userInfo", JSON.stringify(cred.user.email));
-      localStorage.setItem("jwt", cred.user.uid);
-      const userData = {
-        token: cred.user.uid,
-      }
-      dispatch(signInAction(userData));
-      window.location.pathname = '/shop'
-    })
-    .catch((err) => {
-      console.log(err.message);
-      message.error(err.message);
-    })
+      .then((cred) => {
+        console.log("user", cred);
+        message.success("You successfully logged");
+        localStorage.setItem("userInfo", JSON.stringify(cred.user.email));
+        localStorage.setItem("jwt", cred.user.uid);
+        const userData = {
+          token: cred.user.uid,
+        };
+        dispatch(signInAction(userData));
+        window.history.back()
+      })
+      .catch((err) => {
+        message.error(err.message);
+      });
   };
   return (
     <StyledSignIn>
@@ -58,12 +53,15 @@ function SignIn() {
           <form>
             <div onClick={() => inputName.current.focus()}>
               <img src={user} alt="user" />
-              <input type="email" placeholder="EMAIL"
-              style={{backgroundColor: "transparent"}}
-               value={email}
-               name="email"
-               onChange={handleInputChange}
-              ref={inputName} />
+              <input
+                type="email"
+                placeholder="EMAIL"
+                style={{ backgroundColor: "transparent" }}
+                value={email}
+                name="email"
+                onChange={handleInputChange}
+                ref={inputName}
+              />
             </div>
             <div onClick={() => inputPassword.current.focus()}>
               <img src={lock} alt="lock" />

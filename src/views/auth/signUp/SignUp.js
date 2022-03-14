@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import {signUpAction} from '../../../store/auth/actions'
 import { StyledSignIn } from "../signIn/SignIn.style";
+import { message } from "antd";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import LogoImg from "../../../assets/img/sign_logo.svg";
 import user from "../../../assets/img/user.svg";
@@ -27,21 +28,20 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(value);
-
     createUserWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         console.log("user", cred.user);
+        message.success("You successfully  registered");
         localStorage.setItem("userInfo", JSON.stringify(cred.user.email));
         localStorage.setItem("jwt", cred.user.uid);
         const userData = {
           token: cred.user.uid,
         }
         dispatch(signUpAction(userData));
-        window.location.pathname = "/shop";
+        window.history.back()
       })
       .catch((err) => {
-        console.log(err.message);
+        message.error(err.message);
       });
   };
   return (
